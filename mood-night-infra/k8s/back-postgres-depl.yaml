@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back-postgres-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app:  back-postgres
+  template:
+    metadata:
+      labels:
+        app:  back-postgres
+    spec:
+      volumes:
+        - name: mood-night-db
+          persistentVolumeClaim:
+            claimName: mood-night-pv-claim
+      containers:
+        - name: back-postgres
+          image: postgres:10.1
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: mood-night-postgres-configmap
+            - secretRef:
+                name: mood-night-secret
+          volumeMounts:
+            - name: mood-night-db
+              mountPath: /var/lib/postgresql/data
+---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: back-postgres-srv
+#   labels:
+#     app: back-postgres
+# spec:
+#   type: NodePort
+#   ports:
+#     - port: 5432
+#   selector:
+#     app: back-postgres
+apiVersion: v1
+kind: Service
+metadata:
+  name: back-postgres-srv
+spec:
+  selector:
+    app:  back-postgres
+  ports:
+    - name: db
+      protocol: TCP
+      port: 5432
+      targetPort: 5432
+
