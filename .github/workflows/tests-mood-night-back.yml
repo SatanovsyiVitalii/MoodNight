@@ -1,7 +1,9 @@
 name: tests-mood-night-back
 
 on:
-  pull_request
+  pull_request:
+    paths:
+      - 'mood-night-back/**'
 
 jobs:
   build:
