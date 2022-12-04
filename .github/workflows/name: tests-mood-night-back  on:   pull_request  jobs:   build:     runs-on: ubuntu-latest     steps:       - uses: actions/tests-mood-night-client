@@ -1,4 +1,4 @@
-name: tests
+name: tests-mood-night-client
 
 on:
   pull_request
@@ -8,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: cd mood-night-back && npm install && npm run test:ci
+      - run: cd mood-night-client && npm install && npm run test:ci
