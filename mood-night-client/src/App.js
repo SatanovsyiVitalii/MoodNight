@@ -4,7 +4,7 @@ import axios from 'axios';
 function App() {
 
   const [posts, setPosts] = useState([]);
-  console.log("APP STARTED.....");
+  console.log("APP STARTED...");
   const fetchPosts = useCallback(async () => {
     const { data } = await axios.get('http://mood-night.com/api/posts');
     console.log("data", data);
