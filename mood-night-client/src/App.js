@@ -17,11 +17,14 @@ function App() {
   }, [fetchPosts]);
 
   return (
-    <ul>
-      {posts.map((post) => (
-        <li key={post.id}>{post.title}</li>
-      ))}
-    </ul>
+    <div>
+      <h1>MoodNight</h1>
+      <ul>
+        {posts.map((post) => (
+          <li key={post.id}>{post.title}</li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
