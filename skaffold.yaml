@@ -4,6 +4,7 @@ deploy:
   kubectl:
     manifests:
       - ./mood-night-infra/k8s/*
+      - ./mood-night-infra/k8s-dev/*
 build:
   local:
     push: false
