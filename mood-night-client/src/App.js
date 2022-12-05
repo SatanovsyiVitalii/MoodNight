@@ -6,7 +6,8 @@ function App() {
   const [posts, setPosts] = useState([]);
   console.log("APP STARTED.......");
   const fetchPosts = useCallback(async () => {
-    const { data } = await axios.get('http://mood-night.com/api/posts');
+    // const { data } = await axios.get('http://mood-night.com/api/posts');
+    const { data } = await axios.get('http://www.mood-night.xyz/api/posts');
     console.log("data", data);
     setPosts(data);
   }, []);
