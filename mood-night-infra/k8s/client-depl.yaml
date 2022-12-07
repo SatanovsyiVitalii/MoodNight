@@ -15,6 +15,9 @@ spec:
       containers:
         - name: client
           image: vitaliisatanovskyi/mood-night-client
+          envFrom:
+            - configMapRef:
+                name: mood-night-client-configmap
 ---
 apiVersion: v1
 kind: Service
