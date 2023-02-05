@@ -18,15 +18,4 @@ export class DefaultService {
         });
     }
 
-    /**
-     * @returns any
-     * @throws ApiError
-     */
-    public static postsControllerFindAllPosts(): CancelablePromise<any> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/posts',
-        });
-    }
-
 }

@@ -11,13 +11,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const typeorm_1 = require("typeorm");
+const swagger_1 = require("@nestjs/swagger");
+const post_entity_1 = require("../posts/post.entity");
 let User = class User {
 };
 __decorate([
+    (0, swagger_1.ApiProperty)({ example: 1, description: 'The id of the user' }),
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
 ], User.prototype, "id", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        example: 'test@test.com',
+        description: 'The email of the user',
+    }),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
@@ -26,9 +33,21 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        example: true,
+        description: 'Shows if an user is admin',
+    }),
     (0, typeorm_1.Column)({ default: true }),
     __metadata("design:type", Boolean)
 ], User.prototype, "admin", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)(),
+    __metadata("design:type", Date)
+], User.prototype, "created_at", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => post_entity_1.Post, (post) => post.user),
+    __metadata("design:type", Array)
+], User.prototype, "posts", void 0);
 User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);

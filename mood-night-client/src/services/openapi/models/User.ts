@@ -12,10 +12,6 @@ export type User = {
      */
     email: string;
     /**
-     * The password of the user
-     */
-    password: string;
-    /**
      * Shows if an user is admin
      */
     admin: boolean;

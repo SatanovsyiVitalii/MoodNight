@@ -18,6 +18,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: mood-night-postgres-configmap
+            - configMapRef:
+                name: mood-night-back-configmap
             - secretRef:
                 name: mood-night-secret
 ---

@@ -1,3 +1,4 @@
+import { User } from '../users/user.entity';
 import {
   AfterInsert,
   AfterRemove,
@@ -5,6 +6,9 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
   // OneToMany,
 } from 'typeorm';
 // import { Report } from '../reports/report.entity';
@@ -17,21 +21,15 @@ export class Post {
   @Column()
   title: string;
 
-  // @OneToMany(() => Report, (report) => report.user)
-  // reports: Report[];
+  @Column()
+  content: string;
 
-  // @AfterInsert()
-  // logInsert() {
-  //   console.log('Inserted User with id', this.id);
-  // }
+  @CreateDateColumn()
+  created_at: Date;
 
-  // @AfterUpdate()
-  // logUpdate() {
-  //   console.log('Updated User with id', this.id);
-  // }
+  @UpdateDateColumn()
+  updated_at: Date;
 
-  // @AfterRemove()
-  // logRemove() {
-  //   console.log('Remove User with id', this.id);
-  // }
+  @ManyToOne(() => User, (user) => user.posts)
+  user: User;
 }

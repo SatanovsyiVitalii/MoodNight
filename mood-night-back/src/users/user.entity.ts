@@ -5,9 +5,12 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
+  OneToMany,
+  CreateDateColumn,
   // OneToMany,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { Post } from '../posts/post.entity';
 // import { Report } from '../reports/report.entity';
 
 @Entity()
@@ -23,10 +26,6 @@ export class User {
   @Column()
   email: string;
 
-  @ApiProperty({
-    example: 'password',
-    description: 'The password of the user',
-  })
   @Column()
   password: string;
 
@@ -36,6 +35,12 @@ export class User {
   })
   @Column({ default: true })
   admin: boolean;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @OneToMany(() => Post, (post) => post.user)
+  posts: Post[];
 
   // @OneToMany(() => Report, (report) => report.user)
   // reports: Report[];

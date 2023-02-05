@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: mood-night-back-configmap
+    labels:
+        app: back
+data:
+    COOKIE_KEY: sadsafsaf

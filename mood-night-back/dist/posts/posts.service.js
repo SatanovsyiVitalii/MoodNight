@@ -21,8 +21,26 @@ let PostsService = class PostsService {
     constructor(repo) {
         this.repo = repo;
     }
+    create(postDto, user) {
+        const post = this.repo.create(postDto);
+        post.user = user;
+        return this.repo.save(post);
+    }
     find() {
         return this.repo.find();
+    }
+    findOne(id) {
+        if (!id) {
+            return null;
+        }
+        return this.repo.findOneBy({ id });
+    }
+    async remove(id) {
+        const post = await this.findOne(id);
+        if (!post) {
+            throw new common_1.NotFoundException('post not found');
+        }
+        return this.repo.remove(post);
     }
 };
 PostsService = __decorate([

@@ -1,23 +1,50 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { User } from './services/openapi';
-import { getUsers } from './services/api/user';
+/** @jsx jsx */ import { jsx } from '@emotion/react'
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { Header, Page, RedirectLogic } from 'components';
+
+import {
+  HomeRoute,
+  NotFoundRoute,
+  SignInRoute,
+  SignUpRoute,
+  ProtectedRoute,
+} from './routes';
 
 function App() {
-  const [users, setUsers] = useState<User[]>([]);
-  console.log('users', users);
-  const getUsersFetch = useCallback(async () => {
-    const users = await getUsers();
-    setUsers(users);
-  }, []);
-
-  useEffect(() => {
-    getUsersFetch();
-  }, [getUsersFetch]);
-
   return (
-    <div className="App">
+    <React.Suspense fallback={<div>Lazy loading</div>}>
+      <Page>
+        <Header />
+        <Routes>
 
-    </div>
+          <Route
+            path='protected'
+            element={
+              <RedirectLogic>
+                <ProtectedRoute />
+              </RedirectLogic>
+            }
+          />
+          <Route
+            path='signin'
+            element={<SignInRoute />}
+          />
+          <Route
+            path='signup'
+            element={<SignUpRoute />}
+          />
+          <Route
+            path='/'
+            element={<HomeRoute />}
+          />
+          <Route
+            path='*'
+            element={<NotFoundRoute />}
+          />
+        </Routes>
+      </Page>
+    </React.Suspense>
   );
 }
 

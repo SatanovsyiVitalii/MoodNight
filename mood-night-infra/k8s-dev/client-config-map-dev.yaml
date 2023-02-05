@@ -5,4 +5,4 @@ metadata:
     labels:
         app: client
 data:
-    REACT_APP_API_URL: http://mood-night.com
+    REACT_APP_API_URL: http://mood-night.com/api

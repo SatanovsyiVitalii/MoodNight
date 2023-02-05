@@ -16,7 +16,15 @@ const post_entity_1 = require("./posts/post.entity");
 const users_module_1 = require("./users/users.module");
 const posts_module_1 = require("./posts/posts.module");
 const core_1 = require("@nestjs/core");
+const cookieSession = require('cookie-session');
 let AppModule = class AppModule {
+    configure(consumer) {
+        consumer
+            .apply(cookieSession({
+            keys: [process.env.COOKIE_KEY],
+        }))
+            .forRoutes('*');
+    }
 };
 AppModule = __decorate([
     (0, common_1.Module)({
@@ -45,7 +53,15 @@ AppModule = __decorate([
             posts_module_1.PostsModule,
         ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        providers: [
+            app_service_1.AppService,
+            {
+                provide: core_1.APP_PIPE,
+                useValue: new common_1.ValidationPipe({
+                    whitelist: true,
+                }),
+            },
+        ],
     })
 ], AppModule);
 exports.AppModule = AppModule;

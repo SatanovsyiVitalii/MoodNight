@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Post = void 0;
+const user_entity_1 = require("../users/user.entity");
 const typeorm_1 = require("typeorm");
 let Post = class Post {
 };
@@ -21,6 +22,22 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Post.prototype, "title", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Post.prototype, "content", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)(),
+    __metadata("design:type", Date)
+], Post.prototype, "created_at", void 0);
+__decorate([
+    (0, typeorm_1.UpdateDateColumn)(),
+    __metadata("design:type", Date)
+], Post.prototype, "updated_at", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.posts),
+    __metadata("design:type", user_entity_1.User)
+], Post.prototype, "user", void 0);
 Post = __decorate([
     (0, typeorm_1.Entity)()
 ], Post);

@@ -1,10 +1,8 @@
-import { UsersService, OpenAPI } from '../openapi';
+import { UsersService } from '../openapi';
 
-const { usersControllerFindAllUsers } = UsersService;
+const { usersControllerFindAllUsers, usersControllerCreateUser } = UsersService;
 
-OpenAPI.BASE = 'http://mood-night.com';
-
-export const getUsers = async (email: string = "") => {
+export const getUsers = async (email?: string) => {
   try {
     const users = await usersControllerFindAllUsers(email);
     return users;
@@ -12,3 +10,15 @@ export const getUsers = async (email: string = "") => {
     throw new Error(error);
   }
 };
+
+export const createUser = async (email: string = '', password: string = '') => {
+  try {
+    const user = await usersControllerCreateUser({
+      email,
+      password,
+    });
+    return user;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+}
