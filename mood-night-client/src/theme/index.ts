@@ -10,6 +10,14 @@ declare module '@emotion/react' {
         dark: string,
         darker: string,
         darkest: string,
+        hover: {
+          light: string,
+          soft: string,
+          regular: string,
+          dark: string,
+          darker: string,
+          darkest: string,
+        },
       },
       fontSize: {
         lg: string,

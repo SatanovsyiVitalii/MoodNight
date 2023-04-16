@@ -6,6 +6,14 @@ export const colors = {
     dark: "#495057",
     darker: "#343A40",
     darkest: "#212529",
+    hover: {
+      light: "#DDE1E6",
+      soft: "#CBD3D9",
+      regular: "#BCC0C5",
+      dark: "#A6ACB1",
+      darker: "#889094",
+      darkest: "#52585C",
+    },
   },
   fontSize: {
     lg: "1.25rem",

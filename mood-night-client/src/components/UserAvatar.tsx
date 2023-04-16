@@ -2,19 +2,15 @@ import React from 'react';
 import { FaUserAlt } from 'react-icons/fa';
 
 function UserAvatar() {
-  return <div>
-    <div css={(theme) => ({
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      border: `3px solid ${theme.colors.background.gradient.primary}`,
-      borderRadius: '50px',
-      width: '4rem',
-      height: '4rem'
-    })}>
-      <FaUserAlt css={(theme) => ({ fontSize: '2rem', color: theme.colors.background.gradient.primary })} />
-    </div>
-  </div>;
+  return <img
+    css={{
+      height: '2.5rem',
+      width: '2.5rem',
+      borderRadius: '50%',
+      margin: '0 1.5rem',
+    }}
+    src='/images/undraw_profile.svg'
+  />;
 }
 
 export default UserAvatar;
