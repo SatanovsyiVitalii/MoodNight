@@ -53,6 +53,10 @@ __decorate([
     __metadata("design:type", Date)
 ], Post.prototype, "updated_at", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ type: 'text', nullable: true, default: '' }),
+    __metadata("design:type", String)
+], Post.prototype, "description", void 0);
+__decorate([
     (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.posts),
     __metadata("design:type", user_entity_1.User)
 ], Post.prototype, "user", void 0);

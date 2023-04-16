@@ -16,4 +16,7 @@ export class CreatePostDto {
   })
   @IsString()
   content: string;
+
+  @IsString()
+  description: string;
 }

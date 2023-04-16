@@ -14,6 +14,16 @@ export const colors = {
       darker: "#889094",
       darkest: "#52585C",
     },
+    system: {
+      primary: "#0d6efd",
+      secondary: "#6c757d",
+      success: "#198754",
+      info: "#0dcaf0",
+      warning: "#ffc107",
+      danger: "#dc3545",
+      light: "#FFFFFF",
+      dark: "#343a40",
+    }
   },
   fontSize: {
     lg: "1.25rem",
@@ -26,7 +36,7 @@ export const colors = {
       info: "linear-gradient(90deg, #0dcaf0 0%, #31d2f2 100%)",
       warning: "linear-gradient(90deg, #ffc107 0%, #ffdb58 100%)",
       danger: "linear-gradient(90deg, #dc3545 0%, #fc5a5a 100%)",
-      light: "linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 100%)",
+      light: "linear-gradient(90deg, #f8f9fa 0%, #f1f3f5 100%)",
       dark: "linear-gradient(90deg, #343a40 0%, #434f54 100%)",
       hover: {
         primary: "linear-gradient(90deg, #0a58ca 0%, #4f7ef9 100%)",
@@ -38,6 +48,16 @@ export const colors = {
         light: "linear-gradient(90deg, #e2e6ea 0%, #d0dae0 100%)",
         dark: "linear-gradient(90deg, #23272b 0%, #3b464a 100%)",
       },
+    },
+    solid: {
+      primary: "#0d6efd",
+      secondary: "#6c757d",
+      success: "#198754",
+      info: "#0dcaf0",
+      warning: "#ffc107",
+      danger: "#dc3545",
+      light: "#FFFFFF",
+      dark: "#343a40",
     },
     gray: {
       light: "#F8F9FA",
@@ -63,5 +83,15 @@ export const colors = {
       darker: "#889094",
       darkest: "#52585C",
     },
+    system: {
+      primary: "#0d6efd",
+      secondary: "#6c757d",
+      success: "#198754",
+      info: "#0dcaf0",
+      warning: "#ffc107",
+      danger: "#dc3545",
+      light: "#FFFFFF",
+      dark: "#343a40",
+    }
   },
 };

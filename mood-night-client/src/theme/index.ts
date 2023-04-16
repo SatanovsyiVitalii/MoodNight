@@ -18,6 +18,16 @@ declare module '@emotion/react' {
           darker: string,
           darkest: string,
         },
+        system: {
+          primary: string,
+          secondary: string,
+          success: string,
+          info: string,
+          warning: string,
+          danger: string,
+          light: string,
+          dark: string,
+        }
       },
       fontSize: {
         lg: string,
@@ -43,6 +53,16 @@ declare module '@emotion/react' {
             dark: string,
           },
         },
+        solid: {
+          primary: string,
+          secondary: string,
+          success: string,
+          info: string,
+          warning: string,
+          danger: string,
+          light: string,
+          dark: string,
+        },
         gray: {
           light: string,
           soft: string,
@@ -67,6 +87,16 @@ declare module '@emotion/react' {
           darker: string,
           darkest: string,
         },
+        system: {
+          primary: string,
+          secondary: string,
+          success: string,
+          info: string,
+          warning: string,
+          danger: string,
+          light: string,
+          dark: string,
+        }
       },
     },
   }

@@ -5,5 +5,6 @@ export declare class Post {
     content: string;
     created_at: Date;
     updated_at: Date;
+    description: string;
     user: User;
 }

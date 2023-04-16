@@ -49,6 +49,9 @@ export class Post {
   @UpdateDateColumn()
   updated_at: Date;
 
+  @Column({ type: 'text', nullable: true, default: '' })
+  description: string;
+
   @ManyToOne(() => User, (user) => user.posts)
   user: User;
 }

@@ -8,6 +8,9 @@ export class PostDto {
   @Expose()
   content: string;
 
+  @Expose()
+  description: string;
+
   @Transform(({ obj }) => obj.user.id)
   @Expose()
   userId: number;

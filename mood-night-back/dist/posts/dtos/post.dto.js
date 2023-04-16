@@ -26,6 +26,10 @@ __decorate([
     __metadata("design:type", String)
 ], PostDto.prototype, "content", void 0);
 __decorate([
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", String)
+], PostDto.prototype, "description", void 0);
+__decorate([
     (0, class_transformer_1.Transform)(({ obj }) => obj.user.id),
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", Number)

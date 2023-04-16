@@ -1,6 +1,5 @@
-import React, { SyntheticEvent } from 'react';
-import { Theme } from '@emotion/react';
-import { Button, Logo, UserAvatar, CustomAccordion } from 'components';
+import { SyntheticEvent } from 'react';
+import { Button, UserAvatar, CustomAccordion } from 'components';
 import { AccordionItemInterface } from 'components/common/CustomAccordion/CustomAccordion';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -16,9 +15,10 @@ interface HeaderPropsInterface {
 }
 
 const navbarItems = [
-  { text: 'Lorem', onClick: (e: SyntheticEvent) => console.log('Lorem') },
-  { text: 'Lorem', onClick: (e: SyntheticEvent) => console.log('Lorem') },
-  { text: 'Lorem', onClick: (e: SyntheticEvent) => console.log('Lorem') },
+  { text: 'Головна', onClick: (e: SyntheticEvent) => console.log('Lorem') },
+  { text: 'Автори', onClick: (e: SyntheticEvent) => console.log('Lorem') },
+  { text: 'Події', onClick: (e: SyntheticEvent) => console.log('Lorem') },
+  { text: 'Про MoodNight', onClick: (e: SyntheticEvent) => console.log('Lorem') },
 ];
 
 function Header({ ...rest }: HeaderPropsInterface) {
@@ -67,8 +67,8 @@ function Header({ ...rest }: HeaderPropsInterface) {
       width: '100%',
       position: 'fixed',
       zIndex: 1000,
-      background: theme.colors.background.gradient.primary,
-      borderBottom: `1px solid ${theme.colors.border.light}`,
+      background: theme.colors.background.solid.light,
+      borderBottom: `1px solid ${theme.colors.border.dark}`,
     })}>
       <div css={{
         display: 'flex',
@@ -81,10 +81,10 @@ function Header({ ...rest }: HeaderPropsInterface) {
             justifyContent: 'center',
             alignItems: 'center',
             padding: '0 1.5em 0 1.5em',
-            borderRight: `1px solid ${theme.colors.border.light}`,
+            borderRight: `1px solid ${theme.colors.border.dark}`,
             height: 'inherit'
           })}>
-            <span css={(theme) => ({ fontWeight: 'bold', color: theme.colors.text.light })}>MOODNIGHT</span>
+            <span css={(theme) => ({ fontWeight: 'bold', color: theme.colors.text.dark })}>MOODNIGHT</span>
           </div>
           <nav css={(theme) => ({
             color: theme.colors.text.light,
@@ -108,14 +108,14 @@ function Header({ ...rest }: HeaderPropsInterface) {
                     height: '1rem',
                     display: 'flex',
                     alignItems: 'center',
-                    color: theme.colors.text.light,
+                    color: theme.colors.text.dark,
                     fontSize: '0.85em',
                     borderRadius: 'unset',
                     padding: '0 2.5rem',
-                    borderLeft: index !== 0 ? `${theme.colors.border.light} 1px solid` : 'none',
+                    borderLeft: index !== 0 ? `${theme.colors.text.dark} 1px solid` : 'none',
                     '&:hover, &:active, &:focus': {
-                      color: `${theme.colors.text.hover.light} !important`,
-                      borderLeft: index !== 0 ? `${theme.colors.text.light} 1px solid` : 'none',
+                      color: `${theme.colors.text.hover.dark} !important`,
+                      borderLeft: index !== 0 ? `${theme.colors.text.dark} 1px solid !important` : 'none',
                     }
                   })} color='link' onClick={item.onClick}>
                     {item.text.toUpperCase()}

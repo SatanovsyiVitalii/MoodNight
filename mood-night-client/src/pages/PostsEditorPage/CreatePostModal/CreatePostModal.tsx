@@ -12,7 +12,7 @@ import {
 } from 'components';
 import { useCreatePostMutation } from 'store';
 import { useSelector } from 'react-redux';
-
+import { required, maxLength } from 'components/common/Form/validation';
 interface CreatePostModalPropsInterface {
   toggle: React.MouseEventHandler<any>;
   onClose: Function;
@@ -21,6 +21,7 @@ interface CreatePostModalPropsInterface {
 export interface CreatePostFormValuesInterface {
   title?: string;
   content?: string;
+  description?: string;
 }
 
 function CreatePostModal({ toggle, onClose }: CreatePostModalPropsInterface) {
@@ -29,7 +30,8 @@ function CreatePostModal({ toggle, onClose }: CreatePostModalPropsInterface) {
   const onSubmit = async (values: CreatePostFormValuesInterface) => {
     await createPost({
       title: values.title,
-      content: values.content,
+      content: values.content || '',
+      description: values.description || '',
       user,
     });
     onClose();
@@ -41,7 +43,7 @@ function CreatePostModal({ toggle, onClose }: CreatePostModalPropsInterface) {
         onSubmit={onSubmit}
         render={({ handleSubmit }) => (<form onSubmit={handleSubmit}>
           <CustomModalHeader toggle={toggle}>
-            Create a new post
+
           </CustomModalHeader>
           <CustomModalBody>
             <FormRow
@@ -50,6 +52,16 @@ function CreatePostModal({ toggle, onClose }: CreatePostModalPropsInterface) {
               <Field
                 name='title'
                 component={InputAdapter}
+                validate={required}
+              />
+            </FormRow>
+            <FormRow
+              label='Description:'
+            >
+              <Field
+                name='description'
+                component={InputAdapter}
+                validate={maxLength(180)}
               />
             </FormRow>
             <FormRow
@@ -60,6 +72,7 @@ function CreatePostModal({ toggle, onClose }: CreatePostModalPropsInterface) {
                 type='textarea'
                 css={{ resize: 'none' }}
                 component={EditorAdapter}
+                validate={required}
               />
             </FormRow>
           </CustomModalBody>

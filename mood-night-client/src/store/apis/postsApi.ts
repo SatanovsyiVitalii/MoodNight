@@ -5,6 +5,7 @@ export interface Post {
   id: number
   title: string;
   content: string;
+  description: string;
   created_at: Date;
   updated_at: Date;
   user: User;
@@ -47,7 +48,7 @@ export const postsApi = createApi({
         invalidatesTags: () => {
           return [{ type: 'Posts', id: 'CREATE' }]
         },
-        query: ({ title, content, user }) => {
+        query: ({ title, content, description, user }) => {
           return {
             url: '/posts',
             method: 'POST',
@@ -55,6 +56,7 @@ export const postsApi = createApi({
             body: {
               title,
               content,
+              description,
             }
           };
         },

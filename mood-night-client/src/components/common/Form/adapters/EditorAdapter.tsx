@@ -1,4 +1,5 @@
 import React from 'react';
+import { convertFromRaw } from 'draft-js';
 import { EditorState, convertToRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import { FieldRenderProps } from 'react-final-form';
@@ -23,16 +24,19 @@ const EditorAdapter: React.FC<EditorAdapterProps> = ({
   ...rest
 }) => {
   return (
-    <div css={{
-      ...css,
-      border: '1px solid',
-      '.rdw-editor-main': { minHeight: '20rem', maxHeight: '20rem', overflowY: 'auto', padding: '1rem', }
-    }} {...rest}>
-      <Editor
-        onEditorStateChange={(editorState: EditorState) => onChange(JSON.stringify(convertToRaw(editorState.getCurrentContent())))}
-        toolbar={toolbarOptions}
-        {...restInput}
-      />
+    <div>
+      <div css={(theme) => ({
+        ...css,
+        border: meta.error && meta.touched ? `1px solid ${theme.colors.text.system.danger}` : '1px solid',
+        '.rdw-editor-main': { minHeight: '20rem', maxHeight: '20rem', overflowY: 'auto', padding: '1rem', }
+      })} {...rest}>
+        <Editor
+          onEditorStateChange={(editorState: EditorState) => onChange(JSON.stringify(convertToRaw(editorState.getCurrentContent())))}
+          toolbar={toolbarOptions}
+          {...restInput}
+        />
+      </div>
+      {meta.error && meta.touched && <div css={(theme) => ({ color: theme.colors.text.system.danger })}>{meta.error}</div>}
     </div>
   );
 };

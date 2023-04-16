@@ -9,6 +9,7 @@ export enum ButtonColors {
 interface ButtonPropsInterface extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: 'primary' | 'secondary' | 'link' | 'danger' | 'success';
   children: string | React.ReactNode;
+  outline?: boolean;
 }
 
 function CustomButton({ color = 'primary', children, ...rest }: ButtonPropsInterface) {

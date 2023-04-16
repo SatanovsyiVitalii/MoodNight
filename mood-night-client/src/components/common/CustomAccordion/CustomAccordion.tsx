@@ -4,6 +4,7 @@ import React, { EventHandler, useState, useRef, useEffect } from 'react';
 import { Accordion, AccordionItem, AccordionHeader, AccordionBody, CollapseProps } from 'reactstrap';
 
 export interface AccordionItemInterface {
+  id?: string;
   onClick?: EventHandler<React.MouseEvent<HTMLButtonElement>>;
   text?: string;
   css?: object;
@@ -75,14 +76,14 @@ function CustomAccordion({ name, children, items, ...rest }: AccordionPropsInter
           css={(theme) => ({
             position: 'absolute',
             zIndex: 1,
-            borderRadius: '0.35rem',
-            overflow: 'hidden',
             transform: 'translate(-50%, 10%)',
             '.accordion-body': {
               width: '10rem',
               padding: 0,
-              border: `1px solid ${theme.colors.border.soft}`,
-              background: theme.colors.background.gradient.light,
+              border: `1px solid ${theme.colors.border.dark}`,
+              borderRadius: '0.35rem !important',
+              overflow: 'hidden',
+              background: theme.colors.background.solid.light,
             }
           })} accordionId='1'>
           <div ref={accordionRef} css={{
@@ -90,7 +91,8 @@ function CustomAccordion({ name, children, items, ...rest }: AccordionPropsInter
             flexDirection: 'column',
             padding: '0.5rem 0'
           }}>
-            {items.map((_item, index) => _item.type === 'divider' ? <hr css={{ margin: '0.5rem 0' }} /> : <Button
+            {items.map((_item, index) => _item.type === 'divider' ? <hr key={_item?.id || index} css={{ margin: '0.5rem 0' }} /> : <Button
+              key={_item?.id || index}
               css={(theme) => ({
                 borderRadius: 0,
                 color: `${theme.colors.text.dark} !important`,
@@ -101,7 +103,8 @@ function CustomAccordion({ name, children, items, ...rest }: AccordionPropsInter
                   background: `${theme.colors.background.gradient.hover.light} !important`,
                 },
                 ...(typeof _item.css === 'function' ? _item.css(theme) : _item.css)
-              })} color='link' key={_item.text} onClick={(e) => {
+              })} color='link'
+              onClick={(e) => {
                 if (_item.onClick) {
                   _item.onClick(e);
                 }
