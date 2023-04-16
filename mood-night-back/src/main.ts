@@ -3,10 +3,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-
   console.log('Starting up...');
-
-  if (!process.env.POSTGRES_PASSWORD) {
+  if (
+    !process.env.POSTGRES_PASSWORD &&
+    process.env.NODE_ENV !== 'development'
+  ) {
     throw new Error('POSTGRES_PASSWORD must be defined');
   }
 
@@ -17,6 +18,11 @@ async function bootstrap() {
     .build();
 
   const app = await NestFactory.create(AppModule);
+
+  app.enableCors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  });
 
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api/doc', app, document);

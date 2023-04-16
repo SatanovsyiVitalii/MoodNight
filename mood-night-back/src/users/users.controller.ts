@@ -22,6 +22,7 @@ import { Serialize } from '../interceptors/serialize-interceptor';
 import { AuthService } from './auth/auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { CreateUserDto } from './dtos/create-user.dto';
+import { SignInUserDto } from './dtos/signin-user.dto';
 import { UserDto } from './dtos/user.dto';
 import { User } from './user.entity';
 
@@ -68,7 +69,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Sign out' })
   @ApiResponse({
     status: 200,
-    description: '',
+    description: 'Deletes cookies',
     type: undefined,
   })
   @Post('/signout')
@@ -87,14 +88,14 @@ export class UsersController {
   })
   @Post('/signup')
   async createUser(@Body() body: CreateUserDto, @Session() session: any) {
-    const user = await this.authService.signup(body.email, body.password);
+    const user = await this.authService.signup(body);
     session.userId = user.id;
     return user;
   }
 
   @ApiOperation({ summary: 'Sign In' })
   @ApiBody({
-    type: CreateUserDto,
+    type: SignInUserDto,
   })
   @ApiResponse({
     status: 200,
@@ -102,7 +103,7 @@ export class UsersController {
     type: User,
   })
   @Post('/signin')
-  async signin(@Body() body: CreateUserDto, @Session() session: any) {
+  async signin(@Body() body: SignInUserDto, @Session() session: any) {
     const user = await this.authService.signin(body.email, body.password);
     session.userId = user.id;
     return user;

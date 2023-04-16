@@ -1,36 +1,40 @@
-import React, { useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { useFetchUserQuery, User, setUser, selectUser } from 'store';
+import React from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useFetchUserQuery } from 'store';
+import { PATHS, publicPages } from 'routes/constants';
+import { selectSignedInUser } from 'store/slices/userSlice';
 
 interface RedirectLogicPropsInterface {
   children: React.ReactNode;
 }
 
 function RedirectLogic({ children }: RedirectLogicPropsInterface) {
-  const dispatch = useDispatch();
-  const { data, isFetching, error } = useFetchUserQuery();
-  const user: User | null = useSelector(selectUser);
+  const location = useLocation();
+  let signedInUser = null;
+  const { user } = useSelector(selectSignedInUser);
+  const { data: fetchedUser, isFetching, error } = useFetchUserQuery(undefined, { skip: !!user });
 
-  useEffect(() => {
-    if (!user && data) {
-      dispatch(setUser(data));
-    }
-  }, [data, dispatch, user]);
+  signedInUser = user || fetchedUser;
 
-  if (error && 'status' in error && error.status !== 403) {
-    return <div>Error</div>
+  if (isFetching) {
+    return <div>IS FETCHING...</div>
   }
 
-  if ((isFetching || !user) && !error) {
-    return <div>Fetching...</div>;
-  }
-
-  if (user) {
+  if (signedInUser && signedInUser.id) {
     return <>{children}</>;
   }
 
-  return <Navigate to='/signin' />;
+  console.log('publicPages', publicPages);
+  const isPublicPage = Object.values(publicPages).find((_page) => location.pathname === _page);
+
+  console.log('isPublicPage', isPublicPage);
+
+  if (location.pathname !== PATHS.SIGNIN && !isPublicPage) {
+    return <Navigate to={PATHS.SIGNIN} />;
+  }
+
+  return <>{children}</>;
 }
 
 export default RedirectLogic;

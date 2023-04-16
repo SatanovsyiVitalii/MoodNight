@@ -6,6 +6,7 @@ export declare class PostsController {
     private postsService;
     constructor(postsService: PostsService);
     findAllPosts(): Promise<PostEntity[]>;
+    findPost(id: string): Promise<PostEntity>;
     createPost(body: CreatePostDto, user: User): Promise<PostEntity>;
     removePost(id: string): Promise<PostEntity>;
 }

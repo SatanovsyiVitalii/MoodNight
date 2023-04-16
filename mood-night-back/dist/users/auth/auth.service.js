@@ -8,6 +8,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
@@ -19,7 +30,8 @@ let AuthService = class AuthService {
     constructor(usersService) {
         this.usersService = usersService;
     }
-    async signup(email, password) {
+    async signup(_a) {
+        var { email, password } = _a, rest = __rest(_a, ["email", "password"]);
         const users = await this.usersService.find(email);
         if (users.length) {
             throw new common_1.BadRequestException('email in use');
@@ -27,7 +39,7 @@ let AuthService = class AuthService {
         const salt = (0, crypto_1.randomBytes)(8).toString('hex');
         const hash = (await scrypt(password, salt, 32));
         const result = salt + '.' + hash.toString('hex');
-        const user = await this.usersService.create(email, result);
+        const user = await this.usersService.create(Object.assign({ email, password: result }, rest));
         return user;
     }
     async signin(email, password) {

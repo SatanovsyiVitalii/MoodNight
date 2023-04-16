@@ -13,7 +13,11 @@ const users_controller_1 = require("./users.controller");
 const users_service_1 = require("./users.service");
 const user_entity_1 = require("./user.entity");
 const auth_service_1 = require("./auth/auth.service");
+const current_user_middleware_1 = require("./current-user.middleware");
 let UsersModule = class UsersModule {
+    configure(consumer) {
+        consumer.apply(current_user_middleware_1.CurrentUserMiddleware).forRoutes('*');
+    }
 };
 UsersModule = __decorate([
     (0, common_1.Module)({

@@ -1,26 +1,35 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
-import { signedInUserApi } from './apis/signedInUserApi';
-import { userReducer, setUser, selectUser } from './slices/userSlice';
+import { userApi } from './apis/userApi';
+import { postsApi } from './apis/postsApi';
+import { userReducer } from './slices/userSlice';
 
 export const store = configureStore({
   reducer: {
+    [userApi.reducerPath]: userApi.reducer,
+    [postsApi.reducerPath]: postsApi.reducer,
     user: userReducer,
-    [signedInUserApi.reducerPath]: signedInUserApi.reducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware()
-      .concat(signedInUserApi.middleware);
+      .concat(userApi.middleware)
+      .concat(postsApi.middleware);
   }
 });
 
 setupListeners(store.dispatch);
 
-export { useSignInUserMutation, useFetchUserQuery, getSigedInUser } from './apis/signedInUserApi';
-export type { User } from './apis/signedInUserApi';
-export type RootState = ReturnType<typeof store.getState>;
-
 export {
-  setUser,
-  selectUser,
-};
+  useSignInUserMutation,
+  useFetchUserQuery,
+  getSignedInUser,
+  useSignUpUserMutation
+} from './apis/userApi';
+export {
+  useFetchPostsQuery,
+  useCreatePostMutation,
+  useDeletePostMutation,
+  useFetchPostQuery,
+} from './apis/postsApi';
+export type { User } from './apis/userApi';
+export type RootState = ReturnType<typeof store.getState>;

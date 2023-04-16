@@ -8,6 +8,7 @@ import './index.css';
 import App from './App';
 import { store } from './store';
 import reportWebVitals from './reportWebVitals';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

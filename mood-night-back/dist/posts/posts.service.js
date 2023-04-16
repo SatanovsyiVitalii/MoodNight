@@ -27,13 +27,13 @@ let PostsService = class PostsService {
         return this.repo.save(post);
     }
     find() {
-        return this.repo.find();
+        return this.repo.find({ relations: { user: true } });
     }
     findOne(id) {
         if (!id) {
             return null;
         }
-        return this.repo.findOneBy({ id });
+        return this.repo.findOne({ where: { id }, relations: { user: true } });
     }
     async remove(id) {
         const post = await this.findOne(id);

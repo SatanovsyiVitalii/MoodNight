@@ -1,7 +1,11 @@
-/** @jsx jsx */ import { jsx } from '@emotion/react'
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { Header, Page, RedirectLogic } from 'components';
+import { Suspense } from 'react';
+import { Global } from '@emotion/react';
+import 'normalize.css';
+import { ThemeProvider } from '@emotion/react';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { Header, Sidebar, RedirectLogic } from 'components';
+import { PATHS } from 'routes/constants';
+import { theme } from 'theme';
 
 import {
   HomeRoute,
@@ -9,42 +13,71 @@ import {
   SignInRoute,
   SignUpRoute,
   ProtectedRoute,
+  AccountEditorRoute,
+  PostsEditorRoute,
+  PostDetailsRoute,
 } from './routes';
 
-function App() {
-  return (
-    <React.Suspense fallback={<div>Lazy loading</div>}>
-      <Page>
-        <Header />
-        <Routes>
+export const pagesShowSideBar = {
+  [PATHS.PROTECTED]: PATHS.PROTECTED,
+  [PATHS.ACCOUNT_EDITOR]: PATHS.ACCOUNT_EDITOR,
+  [PATHS.POSTS_EDITOR]: PATHS.POSTS_EDITOR
+};
 
-          <Route
-            path='protected'
-            element={
-              <RedirectLogic>
-                <ProtectedRoute />
-              </RedirectLogic>
-            }
-          />
-          <Route
-            path='signin'
-            element={<SignInRoute />}
-          />
-          <Route
-            path='signup'
-            element={<SignUpRoute />}
-          />
-          <Route
-            path='/'
-            element={<HomeRoute />}
-          />
-          <Route
-            path='*'
-            element={<NotFoundRoute />}
-          />
-        </Routes>
-      </Page>
-    </React.Suspense>
+function App() {
+  const location = useLocation();
+  return (
+    <ThemeProvider theme={theme}>
+      <RedirectLogic>
+        <div css={{ display: 'flex' }}>
+          {pagesShowSideBar[location.pathname] && <Sidebar />}
+          <Suspense>
+            <Routes>
+              <Route
+                path={`${PATHS.POST_DETAILS}/:id`}
+                element={
+                  <PostDetailsRoute />
+                }
+              />
+              <Route
+                path={PATHS.POSTS_EDITOR}
+                element={
+                  <PostsEditorRoute />
+                }
+              />
+              <Route
+                path={PATHS.ACCOUNT_EDITOR}
+                element={
+                  <AccountEditorRoute />
+                }
+              />
+              <Route
+                path={PATHS.PROTECTED}
+                element={
+                  <ProtectedRoute />
+                }
+              />
+              <Route
+                path={PATHS.SIGNIN}
+                element={<SignInRoute />}
+              />
+              <Route
+                path={PATHS.SIGNUP}
+                element={<SignUpRoute />}
+              />
+              <Route
+                path='/'
+                element={<HomeRoute />}
+              />
+              <Route
+                path='*'
+                element={<NotFoundRoute />}
+              />
+            </Routes>
+          </Suspense>
+        </div>
+      </RedirectLogic>
+    </ThemeProvider>
   );
 }
 

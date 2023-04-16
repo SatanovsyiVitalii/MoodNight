@@ -1,5 +1,6 @@
 import { AuthService } from './auth/auth.service';
 import { CreateUserDto } from './dtos/create-user.dto';
+import { SignInUserDto } from './dtos/signin-user.dto';
 import { User } from './user.entity';
 import { UsersService } from './users.service';
 export declare class UsersController {
@@ -10,6 +11,6 @@ export declare class UsersController {
     findAllUsers(email: string): Promise<User[]>;
     signOut(session: any): void;
     createUser(body: CreateUserDto, session: any): Promise<User>;
-    signin(body: CreateUserDto, session: any): Promise<User>;
+    signin(body: SignInUserDto, session: any): Promise<User>;
     removeUser(id: string): Promise<User>;
 }

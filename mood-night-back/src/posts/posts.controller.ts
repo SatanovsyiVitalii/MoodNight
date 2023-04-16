@@ -29,6 +29,21 @@ export class PostsController {
     return this.postsService.find();
   }
 
+  @ApiOperation({ summary: 'Get a post' })
+  @ApiQuery({
+    name: 'id',
+    type: Number,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Get a post',
+    type: PostEntity,
+  })
+  @Get('/:id')
+  findPost(@Param('id') id: string) {
+    return this.postsService.findOne(parseInt(id));
+  }
+
   @ApiOperation({ summary: 'Creates a new post' })
   @ApiBody({
     type: CreatePostDto,
@@ -39,7 +54,6 @@ export class PostsController {
     type: PostEntity,
   })
   @Post()
-  @Serialize(PostDto)
   createPost(@Body() body: CreatePostDto, @CurrentUser() user: User) {
     return this.postsService.create(body, user);
   }

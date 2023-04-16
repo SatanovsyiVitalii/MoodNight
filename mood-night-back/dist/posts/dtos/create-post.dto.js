@@ -10,14 +10,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreatePostDto = void 0;
+const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class CreatePostDto {
 }
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        example: 'All quiet on the western front',
+        description: 'A title of the creating post',
+    }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreatePostDto.prototype, "title", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        example: 'This is the testament of Paul B umer, who enlists with his classmates in the German army during World War I.',
+        description: 'The content of the creating post',
+    }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreatePostDto.prototype, "content", void 0);

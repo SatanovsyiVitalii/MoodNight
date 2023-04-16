@@ -16,14 +16,14 @@ export class PostsService {
   }
 
   find() {
-    return this.repo.find();
+    return this.repo.find({ relations: { user: true } });
   }
 
   findOne(id: number) {
     if (!id) {
       return null;
     }
-    return this.repo.findOneBy({ id });
+    return this.repo.findOne({ where: { id }, relations: { user: true } });
   }
 
   async remove(id: number) {

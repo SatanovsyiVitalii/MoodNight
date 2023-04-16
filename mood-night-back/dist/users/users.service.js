@@ -21,8 +21,8 @@ let UsersService = class UsersService {
     constructor(repo) {
         this.repo = repo;
     }
-    create(email, password) {
-        const user = this.repo.create({ email, password });
+    create({ email, password, name, surname }) {
+        const user = this.repo.create({ email, password, name, surname });
         return this.repo.save(user);
     }
     find(email) {

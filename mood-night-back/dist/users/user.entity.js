@@ -29,6 +29,22 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        example: 'John',
+        description: 'The name of the user',
+    }),
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], User.prototype, "name", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: 'Travolta',
+        description: 'The surname of the user',
+    }),
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], User.prototype, "surname", void 0);
+__decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);

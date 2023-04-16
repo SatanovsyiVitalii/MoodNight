@@ -1,4 +1,3 @@
-/** @jsx jsx */ import { jsx } from '@emotion/react';
 import React from 'react';
 import { Button } from 'reactstrap';
 
@@ -8,7 +7,7 @@ export enum ButtonColors {
 };
 
 interface ButtonPropsInterface extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  color?: 'primary' | 'secondary' | 'link';
+  color?: 'primary' | 'secondary' | 'link' | 'danger' | 'success';
   children: string | React.ReactNode;
 }
 
@@ -26,6 +25,10 @@ function CustomButton({ color = 'primary', children, ...rest }: ButtonPropsInter
     css = {
       textDecoration: 'none',
     };
+  } else if (color === 'danger') {
+    _color = 'danger';
+  } else if (color === 'success') {
+    _color = 'success';
   }
 
   return (

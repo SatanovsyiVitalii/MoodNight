@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { randomBytes, scrypt as _scrypt } from 'crypto';
 import { promisify } from 'util';
+import { CreateUserDto } from '../dtos/create-user.dto';
 import { UsersService } from '../users.service';
 
 const scrypt = promisify(_scrypt);
@@ -13,7 +14,7 @@ const scrypt = promisify(_scrypt);
 export class AuthService {
   constructor(private usersService: UsersService) {}
 
-  async signup(email: string, password: string) {
+  async signup({ email, password, ...rest }: CreateUserDto) {
     // See if email is in use
     const users = await this.usersService.find(email);
     if (users.length) {
@@ -30,7 +31,11 @@ export class AuthService {
     const result = salt + '.' + hash.toString('hex');
 
     // Create a new user and save it
-    const user = await this.usersService.create(email, result);
+    const user = await this.usersService.create({
+      email,
+      password: result,
+      ...rest,
+    });
 
     // return the user
     return user;

@@ -26,6 +26,20 @@ export class User {
   @Column()
   email: string;
 
+  @ApiProperty({
+    example: 'John',
+    description: 'The name of the user',
+  })
+  @Column()
+  name: string;
+
+  @ApiProperty({
+    example: 'Travolta',
+    description: 'The surname of the user',
+  })
+  @Column()
+  surname: string;
+
   @Column()
   password: string;
 

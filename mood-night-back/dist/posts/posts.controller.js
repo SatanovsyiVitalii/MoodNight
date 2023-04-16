@@ -16,9 +16,7 @@ exports.PostsController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const current_user_decorator_1 = require("../users/decorators/current-user.decorator");
-const serialize_interceptor_1 = require("../interceptors/serialize-interceptor");
 const create_post_dto_1 = require("./dtos/create-post.dto");
-const post_dto_1 = require("./dtos/post.dto");
 const posts_service_1 = require("./posts.service");
 const user_entity_1 = require("../users/user.entity");
 const post_entity_1 = require("./post.entity");
@@ -28,6 +26,9 @@ let PostsController = class PostsController {
     }
     findAllPosts() {
         return this.postsService.find();
+    }
+    findPost(id) {
+        return this.postsService.findOne(parseInt(id));
     }
     createPost(body, user) {
         return this.postsService.create(body, user);
@@ -49,6 +50,23 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], PostsController.prototype, "findAllPosts", null);
 __decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Get a post' }),
+    (0, swagger_1.ApiQuery)({
+        name: 'id',
+        type: Number,
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Get a post',
+        type: post_entity_1.Post,
+    }),
+    (0, common_1.Get)('/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], PostsController.prototype, "findPost", null);
+__decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Creates a new post' }),
     (0, swagger_1.ApiBody)({
         type: create_post_dto_1.CreatePostDto,
@@ -59,7 +77,6 @@ __decorate([
         type: post_entity_1.Post,
     }),
     (0, common_1.Post)(),
-    (0, serialize_interceptor_1.Serialize)(post_dto_1.PostDto),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, current_user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
